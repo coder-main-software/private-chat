@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: private-realtime-chat
+    runtime: node
+    region: singapore
+    plan: starter
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeploy: true
+    disk:
+      name: chat-data
+      mountPath: /opt/render/project/src/data
+      sizeGB: 1
