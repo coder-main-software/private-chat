@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b1020" />
+    <title>密语 · 私密聊天室</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div id="toast" class="toast"></div>
+
+    <main id="auth-view" class="auth-shell">
+      <section class="auth-card">
+        <div class="brand-mark">密</div>
+        <p class="eyebrow">PRIVATE / REALTIME</p>
+        <h1>只和你邀请的人聊天。</h1>
+        <p class="auth-subtitle">创建一个私密房间，分享邀请码。没有邀请码的人，找不到也进不来。</p>
+        <div class="auth-tabs">
+          <button class="tab active" data-auth-tab="login">登录</button>
+          <button class="tab" data-auth-tab="register">创建账号</button>
+        </div>
+        <form id="auth-form">
+          <label>昵称<input id="auth-username" autocomplete="username" placeholder="例如：小林" required /></label>
+          <label>密码<input id="auth-password" type="password" autocomplete="current-password" placeholder="至少 6 位" required /></label>
+          <button class="primary-button" type="submit"><span id="auth-submit-label">进入聊天室</span><span class="button-arrow">↗</span></button>
+        </form>
+        <p class="privacy-note"><span class="lock-icon">⌁</span> 房间列表仅对已加入的成员可见</p>
+      </section>
+      <aside class="auth-aside">
+        <div class="orb orb-one"></div><div class="orb orb-two"></div>
+        <div class="aside-copy">
+          <span class="aside-kicker">你的空间</span>
+          <strong>不公开，<br />也不打扰。</strong>
+          <p>房主可以管理成员、禁言和移除。消息实时送达，房间由你掌控。</p>
+        </div>
+        <div class="aside-footer"><span>ROOMS / 01</span><span>EST. 2026</span></div>
+      </aside>
+    </main>
+
+    <main id="app-view" class="app-shell hidden">
+      <aside class="sidebar">
+        <div class="sidebar-top">
+          <div class="brand-lockup"><div class="brand-mark small">密</div><span>密语</span></div>
+          <button id="logout-button" class="icon-button" title="退出登录">↗</button>
+        </div>
+        <div class="user-chip"><div id="user-avatar" class="avatar"></div><div><strong id="current-username"></strong><span>在线</span></div><i></i></div>
+        <div class="sidebar-heading"><span>我的房间</span><button id="new-room-button" class="round-button">+</button></div>
+        <div id="room-list" class="room-list"></div>
+        <div class="sidebar-bottom"><span class="status-dot"></span>端到端体验 · 实时连接</div>
+      </aside>
+
+      <section class="chat-panel">
+        <header class="chat-header">
+          <div class="room-title"><div class="room-symbol">#</div><div><h2 id="room-name">选择一个房间</h2><span id="room-meta">从左侧进入或创建房间</span></div></div>
+          <div id="owner-tools" class="owner-tools hidden"><button id="invite-button" class="secondary-button">复制邀请码</button><button id="members-button" class="secondary-button">成员管理</button></div>
+        </header>
+        <div id="empty-chat" class="empty-chat"><div class="empty-symbol">✦</div><h3>这里很安静</h3><p>选择一个房间，开始一段只属于你们的对话。</p></div>
+        <div id="message-list" class="message-list hidden"></div>
+        <form id="message-form" class="message-form hidden"><label class="file-button" title="发送文件"><input id="file-input" type="file" /><span>⌕</span></label><input id="message-input" maxlength="2000" autocomplete="off" placeholder="输入消息，按 Enter 发送..." /><button class="send-button" aria-label="发送">↑</button></form>
+      </section>
+
+      <aside id="members-panel" class="members-panel hidden">
+        <div class="members-header"><div><span class="eyebrow">ROOM CONTROL</span><h3>成员管理</h3></div><button id="close-members" class="icon-button">×</button></div>
+        <p class="members-help">房主可以禁言或移除房间成员。</p>
+        <div id="members-list" class="members-list"></div>
+      </aside>
+    </main>
+
+    <dialog id="room-dialog" class="modal"><form method="dialog" id="room-form"><button class="modal-close" value="cancel">×</button><span class="eyebrow">NEW ROOM</span><h2>创建私密房间</h2><p>创建后你会自动成为房主，并获得一个邀请码。</p><label>房间名称<input id="room-name-input" maxlength="42" placeholder="例如：周末桌游局" required /></label><button class="primary-button" value="default">创建房间 <span class="button-arrow">↗</span></button></form></dialog>
+    <dialog id="join-dialog" class="modal"><form method="dialog" id="join-form"><button class="modal-close" value="cancel">×</button><span class="eyebrow">JOIN ROOM</span><h2>加入私密房间</h2><p>向房主索取 10 位邀请码。</p><label>邀请码<input id="invite-input" maxlength="10" placeholder="例如：A1B2C3D4E5" required /></label><button class="primary-button" value="default">加入房间 <span class="button-arrow">↗</span></button></form></dialog>
+    <button id="join-floating" class="join-floating">＋ 加入房间</button>
+    <script src="/app.js"></script>
+  </body>
+</html>
